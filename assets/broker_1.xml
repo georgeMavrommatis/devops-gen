@@ -101,7 +101,7 @@
 			</address-setting>
 		</address-settings>
 
-		<!-- Starting live only config with its drawbacks in case of a crash
+		<!-- Starting live only config with its drawbacks in case of a crash -->
 		<ha-policy>
 			<live-only>
 				<scale-down>
@@ -112,52 +112,6 @@
 				</scale-down>
 			</live-only>
 		</ha-policy>
-		-->
-
-
-      <!-- a colocated server that will allow shared store backups to be requested, the default for this template is to scale down 
-      <ha-policy>
-         <shared-store>
-            <colocated>
-               <backup-port-offset>100</backup-port-offset>
-               <backup-request-retries>-1</backup-request-retries>
-               <backup-request-retry-interval>2000</backup-request-retry-interval>
-               <max-backups>1</max-backups>
-               <request-backup>true</request-backup>
-               <master>
-                  <failover-on-shutdown>true</failover-on-shutdown>
-               </master>
-               <slave>
-                  <scale-down/>
-               </slave>
-            </colocated>
-         </shared-store>
-      </ha-policy>	
-		-->
-
-
-      <!-- HA configuration -->
-      <ha-policy>
-         <replication>
-            <colocated>
-               <max-backups>1</max-backups>
-               <request-backup>true</request-backup>
-               <backup-request-retry-interval>1000</backup-request-retry-interval>
-               <excludes>
-                  <connector-ref>netty-connector-1r</connector-ref>
-                  <connector-ref>netty-connector</connector-ref>
-               </excludes>
-               <master/>
-               <slave>
-                  <scale-down>
-                     <connectors>
-                        <connector-ref>netty-connector-1</connector-ref>
-                     </connectors>
-                  </scale-down>
-               </slave>
-            </colocated>
-         </replication>
-      </ha-policy>
 		
 
 		<connectors>
