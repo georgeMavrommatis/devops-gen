@@ -25,7 +25,6 @@
 
 		<acceptors>
 			<acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300</acceptor>
-			<acceptor name="stomp">tcp://0.0.0.0:61613?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=STOMP;useEpoll=true</acceptor>
 		</acceptors>
 
 
@@ -101,22 +100,35 @@
 			</address-setting>
 		</address-settings>
 
-		<!-- Starting live only config with its drawbacks in case of a crash -->
-		<ha-policy>
-			<live-only>
-				<scale-down>
-					<enabled>true</enabled>
-					<connectors>
-						<connector-ref>netty-connector-1</connector-ref>
-					</connectors>
-				</scale-down>
-			</live-only>
-		</ha-policy>
+		<!-- Starting replication only config  -->
+      <ha-policy>
+         <replication>
+            <master>
+               <!--we need this for auto failback-->
+               <check-for-live-server>true</check-for-live-server>
+            </master>
+         </replication>
+      </ha-policy>
 		
+      <broadcast-groups>
+         <broadcast-group name="bg-group1">
+            <group-address>${udp-address:231.7.7.7}</group-address>
+            <group-port>9876</group-port>
+            <broadcast-period>1000</broadcast-period>
+            <connector-ref>netty-connector</connector-ref>
+         </broadcast-group>
+      </broadcast-groups>
+
+      <discovery-groups>
+         <discovery-group name="dg-group1">
+            <group-address>${udp-address:231.7.7.7}</group-address>
+            <group-port>9876</group-port>
+            <refresh-timeout>5000</refresh-timeout>
+         </discovery-group>
+      </discovery-groups>
 
 		<connectors>
 			<connector name="netty-connector">tcp://sw-prd-queue-mgr01.generalihellas.gr:61616</connector>
-			<connector name="netty-connector-1">tcp://sw-prd-queue-mgr02.generalihellas.gr:61617</connector>
 		</connectors>
 
 		<cluster-connections>
@@ -126,9 +138,7 @@
 				<message-load-balancing>STRICT</message-load-balancing>
 				<max-hops>1</max-hops>
 
-				<static-connectors>
-					<connector-ref>netty-connector-1</connector-ref>
-				</static-connectors>
+				<discovery-group-ref discovery-group-name="dg-group1"/>
 			</cluster-connection>
 		</cluster-connections>
 		

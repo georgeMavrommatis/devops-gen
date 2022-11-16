@@ -26,7 +26,6 @@
 
         <acceptors>
             <acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300</acceptor>
-            <acceptor name="stomp">tcp://0.0.0.0:61613?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=STOMP;useEpoll=true</acceptor>
         </acceptors>
 
 
@@ -101,35 +100,46 @@
             </address-setting>
         </address-settings>
 
-        <!-- Starting live only config with its drawbacks in case of a crash -->
-        <ha-policy>
-            <live-only>
+        <!-- Starting replication config  -->
+      <ha-policy>
+         <replication>
+            <slave>
+               <allow-failback>true</allow-failback>
                 <scale-down>
                     <enabled>true</enabled>
-                    <connectors>
-                        <connector-ref>netty-connector-0</connector-ref>
-                    </connectors>
                 </scale-down>
-            </live-only>
-        </ha-policy>
-        
+            </slave>
+         </replication>
+      </ha-policy>
+
+      <broadcast-groups>
+         <broadcast-group name="bg-group1">
+            <group-address>${udp-address:231.7.7.7}</group-address>
+            <group-port>9876</group-port>
+            <broadcast-period>1000</broadcast-period>
+            <connector-ref>netty-connector</connector-ref>
+         </broadcast-group>
+      </broadcast-groups>
+
+      <discovery-groups>
+         <discovery-group name="dg-group1">
+            <group-address>${udp-address:231.7.7.7}</group-address>
+            <group-port>9876</group-port>
+            <refresh-timeout>5000</refresh-timeout>
+         </discovery-group>
+      </discovery-groups>        
 
         <connectors>
             <connector name="netty-connector-0">tcp://sw-prd-queue-mgr01.generalihellas.gr:61616</connector>
             <connector name="netty-connector">tcp://sw-prd-queue-mgr02.generalihellas.gr:61617</connector>
         </connectors>
 
-        <cluster-connections>
-            <cluster-connection name="generali">
-                <connector-ref>netty-connector</connector-ref>
-                <retry-interval>500</retry-interval>
-                <message-load-balancing>STRICT</message-load-balancing>
-                <max-hops>1</max-hops>
-                <static-connectors>
-                    <connector-ref>netty-connector-0</connector-ref>
-                </static-connectors>
-            </cluster-connection>
-        </cluster-connections>
+      <cluster-connections>
+         <cluster-connection name="generali">
+            <connector-ref>netty-connector</connector-ref>
+            <discovery-group-ref discovery-group-name="dg-group1"/>
+         </cluster-connection>
+      </cluster-connections>
 
 
     </core>
