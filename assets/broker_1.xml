@@ -103,10 +103,7 @@
 		<!-- Starting replication only config  -->
       <ha-policy>
          <replication>
-            <master>
-               <!--we need this for auto failback-->
-               <check-for-live-server>true</check-for-live-server>
-            </master>
+            <master/>
          </replication>
       </ha-policy>
 		

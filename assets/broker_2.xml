@@ -103,12 +103,7 @@
         <!-- Starting replication config  -->
       <ha-policy>
          <replication>
-            <slave>
-               <allow-failback>true</allow-failback>
-                <scale-down>
-                    <enabled>true</enabled>
-                </scale-down>
-            </slave>
+           <slave/>
          </replication>
       </ha-policy>
 
