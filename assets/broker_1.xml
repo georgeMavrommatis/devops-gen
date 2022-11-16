@@ -104,7 +104,9 @@
 		<!-- Starting replication only config  -->
       <ha-policy>
          <replication>
-            <master/>
+            <master>
+				<check-for-live-server>true</check-for-live-server>
+			</master>
          </replication>
       </ha-policy>
 
