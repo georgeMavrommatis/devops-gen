@@ -114,8 +114,6 @@
         </ha-policy>
         
 
-
-
         <connectors>
             <connector name="netty-connector-0">tcp://sw-prd-queue-mgr01.generalihellas.gr:61616</connector>
             <connector name="netty-connector">tcp://sw-prd-queue-mgr02.generalihellas.gr:61617</connector>
