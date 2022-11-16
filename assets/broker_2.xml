@@ -104,7 +104,9 @@
         <!-- Starting replication config  -->
       <ha-policy>
          <replication>
-           <slave/>
+           <slave>
+               <allow-failback>true</allow-failback>
+           </slave>
          </replication>
       </ha-policy>
 
