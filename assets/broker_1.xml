@@ -102,18 +102,18 @@
 		</address-settings>
 
 		<!-- Starting replication only config  -->
-      <ha-policy>
+      <!--<ha-policy>
          <replication>
             <master>
 				<check-for-live-server>true</check-for-live-server>
 			</master>
          </replication>
-      </ha-policy>
+      </ha-policy>-->
 
 
 		<connectors>
 			<connector name="netty-connector">tcp://sw-prd-queue-mgr01.generalihellas.gr:61616</connector>
-			<connector name="netty-connector-1">tcp://sw-prd-queue-mgr02.generalihellas.gr:61617</connector>
+			<!--<connector name="netty-connector-1">tcp://sw-prd-queue-mgr02.generalihellas.gr:61617</connector>-->
 		</connectors>
 
 		<cluster-connections>
