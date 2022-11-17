@@ -104,11 +104,11 @@
 
 		<!-- Starting replication only config  -->
       <ha-policy>
-         <shared-store>
+         <replication>
             <master>
 				<!--<check-for-live-server>true</check-for-live-server>-->
 			</master>
-         </shared-store>
+         </replication>
       </ha-policy>
 
 
