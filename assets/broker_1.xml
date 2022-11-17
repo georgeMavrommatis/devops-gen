@@ -106,7 +106,7 @@
       <ha-policy>
          <replication>
             <master>
-				<!--<check-for-live-server>true</check-for-live-server>-->
+				<check-for-live-server>true</check-for-live-server>
 			</master>
          </replication>
       </ha-policy>
