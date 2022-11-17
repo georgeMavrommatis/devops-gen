@@ -107,6 +107,7 @@
          <replication>
             <master>
 				<check-for-live-server>true</check-for-live-server>
+				<failover-on-shutdown>true</failover-on-shutdown>
 			</master>
          </replication>
       </ha-policy>
