@@ -108,6 +108,7 @@
            <slave>
                <!--<allow-failback>true</allow-failback>
                <failback-delay>5000</failback-delay>-->
+               <failover-on-shutdown>true</failover-on-shutdown>
            </slave>
          </replication>
       </ha-policy>
