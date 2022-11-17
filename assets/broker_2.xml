@@ -103,12 +103,12 @@
 
         <!-- Starting replication config  -->
       <ha-policy>
-         <replication>
+         <shared-store>
            <slave>
                <!--<allow-failback>true</allow-failback>
                <failback-delay>5000</failback-delay>-->
            </slave>
-         </replication>
+         </shared-store>
       </ha-policy>
 
         <connectors>
