@@ -24,6 +24,7 @@
         <cluster-user>artemisGeneraliCluster</cluster-user>
         <cluster-password>jeoKTWislFVpmYAah2nv</cluster-password>
         <graceful-shutdown-enabled>true</graceful-shutdown-enabled>
+        <async-connection-execution-enabled>false</async-connection-execution-enabled>
 
         <acceptors>
             <acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300</acceptor>
@@ -106,9 +107,10 @@
       <ha-policy>
          <replication>
            <slave>
+               <!--All Replication Configuration: https://activemq.apache.org/components/artemis/documentation/latest/ha.html-->
+               <initial-replication-sync-timeout>30000</initial-replication-sync-timeout>
                <!--<allow-failback>true</allow-failback>
                <failback-delay>5000</failback-delay>-->
-               <!--<failover-on-shutdown>true</failover-on-shutdown>-->
            </slave>
          </replication>
       </ha-policy>
