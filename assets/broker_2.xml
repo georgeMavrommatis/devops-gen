@@ -60,7 +60,9 @@
             </address>
             <address name="gr.generali.testing.general.queue">
                 <anycast>
-                    <queue name="gr.generali.testing.general.queue"/>
+                    <queue name="gr.generali.testing.general.queue">
+                        <durable>true</durable>
+                    </queue>
                 </anycast>
             </address>
         </addresses>
