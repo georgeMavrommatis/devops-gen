@@ -1,0 +1,69 @@
+version: "3.8"
+services:
+  broker_1:
+    image: sw-nexus:9001/activemq-artemis-broker-1-dev-ops:0.1.0
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+          # - node.labels == nolabel
+    ports:
+      - "8161:8161" # Embedded web server
+      - "61616:61616" # Main Artemis acceptor
+    networks:
+      artemis-cluster-network:
+    environment:
+      ARTEMIS_USERNAME: "generaliMessaging"
+      ARTEMIS_PASSWORD: "TY587xrMwcUICohd10Cn"
+    volumes:
+      - type: volume
+        source: activemq-artemis-data-broker-1
+        target: /opt/messaging/artemis/data
+
+  broker_2:
+    image: sw-nexus:9001/activemq-artemis-broker-2-dev-ops:0.1.0
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    depends_on:
+      - "broker_1"
+    ports:
+      - "8162:8161" # Embedded web server
+      - "61617:61616" # Main Artemis acceptor
+    networks:
+      artemis-cluster-network:
+    environment:
+      ARTEMIS_USERNAME: "generaliMessaging"
+      ARTEMIS_PASSWORD: "TY587xrMwcUICohd10Cn"
+    volumes:
+      - type: volume
+        source: activemq-artemis-data-broker-2
+        target: /opt/messaging/artemis/data
+
+
+networks:
+  artemis-cluster-network:
+    driver: overlay
+    attachable: true
+
+volumes:
+  activemq-artemis-data-broker-1:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/acmq/broker1/data/
+
+  activemq-artemis-data-broker-2:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/acmq/broker2/data/
