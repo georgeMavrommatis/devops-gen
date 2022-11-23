@@ -25,7 +25,6 @@
         <cluster-user>artemisGeneraliCluster</cluster-user>
         <cluster-password>jeoKTWislFVpmYAah2nv</cluster-password>
         <graceful-shutdown-enabled>true</graceful-shutdown-enabled>
-        <async-connection-execution-enabled>false</async-connection-execution-enabled>
 
         <acceptors>
             <acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300</acceptor>
