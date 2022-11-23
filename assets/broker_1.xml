@@ -120,7 +120,7 @@
 
 				<!--Whether to check the cluster for a (live) server using our own server ID when starting up.
 				This is an important option to avoid split-brain when failover happens and the master is restarted. Default is false.-->
-				<check-for-live-server>true</check-for-live-server>
+				<check-for-live-server>false</check-for-live-server>
 			</master>
          </replication>
       </ha-policy>
