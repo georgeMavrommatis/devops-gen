@@ -109,6 +109,15 @@
       <ha-policy>
          <replication>
             <master>
+				<!--initial-replication-sync-timeout look for it at High Availability and Failover section of
+               https://activemq.apache.org/components/artemis/documentation/latest/ha.html document-->
+
+				<!--The amount of time the replicating server will wait at the completion of the initial
+                     replication process for the replica to acknowledge it has received all the
+                     necessary data. The default is 30,000 milliseconds. Note: during this interval any
+                     journal related operations will be blocked.-->
+				<initial-replication-sync-timeout>30000</initial-replication-sync-timeout>
+
 				<!--Whether to check the cluster for a (live) server using our own server ID when starting up.
 				This is an important option to avoid split-brain when failover happens and the master is restarted. Default is false.-->
 				<check-for-live-server>true</check-for-live-server>

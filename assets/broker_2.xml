@@ -117,12 +117,11 @@
                     replication process for the replica to acknowledge it has received all the
                     necessary data. The default is 30,000 milliseconds. Note: during this interval any
                     journal related operations will be blocked.-->
-               <!--<initial-replication-sync-timeout>30000</initial-replication-sync-timeout>-->
+               <initial-replication-sync-timeout>30000</initial-replication-sync-timeout>
 
                <!--Whether a server will automatically stop when another places a request to take
                    over its place. The use case is when the backup has failed over.-->
-               <allow-failback>true</allow-failback>
-               <failback-delay>30000</failback-delay>
+               <allow-failback>false</allow-failback>
            </slave>
          </replication>
       </ha-policy>
