@@ -7,7 +7,7 @@ RUN locale-gen 'el_GR.UTF-8'
 RUN update-locale LANG='el_GR.UTF-8'
 
 ARG ACTIVEMQ_DISTRIBUTION_URL=$ACTIVEMQ_LOCAL_URL
-ENV ACTIVEMQ_ARTEMIS_VERSION=2.25.0
+ENV ACTIVEMQ_ARTEMIS_VERSION=2.27.0
 ENV INSTANCE_HOME=/opt/messaging/artemis
 ENV INSTANCE_ETC=/opt/messaging/artemis/etc
 ENV USER=generaliMessaging  
