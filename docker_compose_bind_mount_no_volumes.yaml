@@ -67,7 +67,6 @@ volumes:
       o: bind
       type: none
       device: /opt/docker-volumes/nfs/acmq/broker2/data/
-  gfadmin@sw-prd-queue-mgr01:~$ cat docker-compose_bind_mount.yml
 version: "3.8"
 services:
   broker_1:

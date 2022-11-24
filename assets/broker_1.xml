@@ -109,6 +109,7 @@
       <ha-policy>
          <replication>
             <master>
+				<cluster-name>generali</cluster-name>
 				<!--initial-replication-sync-timeout look for it at High Availability and Failover section of
                https://activemq.apache.org/components/artemis/documentation/latest/ha.html document-->
 
