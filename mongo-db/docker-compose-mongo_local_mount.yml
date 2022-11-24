@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+  mongodb_server_1:
+    image: mongo:5
+    command: mongod --serviceExecutor adaptive --replSet rs1 --port 27017 --keyFile /etc/mongo-repl.key
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    ports:
+      - 27017:27017
+    networks:
+      mongodb-cluster-network:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+    volumes:
+      - mongodb_server_1_data:/data/db
+      - ./mongo-repl.key:/etc/mongo-repl.key
+  mongodb_server_2:
+    image: mongo:5
+    command: mongod --serviceExecutor adaptive --replSet rs1 --port 27017 --keyFile /etc/mongo-repl.key
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    ports:
+      - 27117:27017
+    networks:
+      mongodb-cluster-network:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+    volumes:
+      - mongodb_server_2_data:/data/db
+      - ./mongo-repl.key:/etc/mongo-repl.key
+#  mongodb_server_3:
+#    image: mongo:5
+#    command: mongod --serviceExecutor adaptive --replSet rs1 --port 27017 --keyFile /etc/mongo-repl.key
+#    ports:
+#      - 27217:27017
+#    networks:
+#      mongodb-cluster-network:
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=admin_user
+#      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+#    volumes:
+#      - mongodb_server_3_data:/data/db
+#      - ./mongo-repl.key:/etc/mongo-repl.key
+
+networks:
+    mongodb-cluster-network:
+        driver: overlay
+        attachable: true
+
+volumes:
+  mongodb_server_1_data:
+  mongodb_server_2_data:
+#  mongodb_server_3_data:
