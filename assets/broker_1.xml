@@ -22,6 +22,7 @@
 		<critical-analyzer-policy>HALT</critical-analyzer-policy>
 		<cluster-user>artemisGeneraliCluster</cluster-user>
 		<cluster-password>jeoKTWislFVpmYAah2nv</cluster-password>
+		<graceful-shutdown-enabled>true</graceful-shutdown-enabled>
 
 		<acceptors>
 			<acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300</acceptor>
@@ -57,7 +58,9 @@
 			</address>
 			<address name="gr.generali.testing.general.queue">
 				<anycast>
-					<queue name="gr.generali.testing.general.queue"/>
+					<queue name="gr.generali.testing.general.queue">
+						<durable>true</durable>
+					</queue>
 				</anycast>
 			</address>
 		</addresses>
