@@ -7,6 +7,12 @@ do
 done
 echo "Connection finished"
 echo "Creating replica set"
+do=true
+foo=$(cat /var/log/syslog | grep -c "replica set created")
+while $do;
+do
+do=false
+
 mongo --host mongodb1 <<EOF
 rs.initiate(
   {
@@ -20,3 +26,12 @@ rs.initiate(
 )
 EOF
 echo "replica set created"
+
+foo=$(cat /var/log/syslog | grep -c "replica set created")
+# your code ...
+if(foo == 1);
+then
+break;
+fi;
+
+done
