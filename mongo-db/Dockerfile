@@ -18,5 +18,6 @@ RUN mkdir $DEPLOYMENT_SCRIPT_DIR
 
 # ENTRYPOINT ["/deployment_scripts/initiate_replica.sh"]
 
-COPY docker-entrypoint.sh /
+COPY initiate_replica.sh /
+RUN echo ls -ll
 ENTRYPOINT ["/initiate_replica.sh"]
