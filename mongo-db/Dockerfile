@@ -12,8 +12,11 @@ RUN update-locale LANG='el_GR.UTF-8'
 
 RUN mkdir $DEPLOYMENT_SCRIPT_DIR 
 
-ADD initiate_replica.sh $DEPLOYMENT_SCRIPT_DIR/$DEPLOYMENT_SCRIPT_FILE
+# ADD initiate_replica.sh $DEPLOYMENT_SCRIPT_DIR/$DEPLOYMENT_SCRIPT_FILE
 
-WORKDIR $DEPLOYMENT_SCRIPT_DIR
+# WORKDIR $DEPLOYMENT_SCRIPT_DIR
 
-ENTRYPOINT ["./initiate_replica.sh"]
+# ENTRYPOINT ["/deployment_scripts/initiate_replica.sh"]
+
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/initiate_replica.sh"]
