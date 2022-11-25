@@ -3,7 +3,7 @@ FROM mongo:5
 ENV DEPLOYMENT_SCRIPT_DIR="/deployment_scripts"
 ENV DEPLOYMENT_SCRIPT_FILE="initiate_replica.sh"
 
-RUN apt-get update && apt-get install -y locales vim apt net-tools wget curl gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init && apt-get install --reinstall rsyslog\
+RUN apt-get update && apt-get install -y locales vim apt net-tools wget curl gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init && apt-get install -y --reinstall rsyslog\
   && \
   rm -rf /var/lib/apt/lists/*
 RUN service rsyslog start
