@@ -1,0 +1,73 @@
+version: '3.8'
+services:
+
+  mongodb1:
+    image: mongo:5
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    ports:
+      - 30001:27017
+    networks:
+      - alphanetwork
+    volumes:
+      - data1:/data/db
+      - config1:/data/configdb
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongodb2:
+    image: mongo:5
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    ports:
+      - 30002:27017
+    networks:
+      - alphanetwork
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongodb3:
+    image: mongo:5
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    ports:
+      - 30003:27017
+    networks:
+      - alphanetwork
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongoclient:
+    image: mongo:5
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+    depends_on:
+      - mongodb1
+      - mongodb2
+      - mongodb3
+    networks:
+      - alphanetwork
+    volumes:
+      - ./deployment_scripts:/deployment_scripts
+    command: ./deployment_scripts/initiate_replica.sh
+#    entrypoint:
+#      - /deployment_scripts/initiate_replica.sh
+
+networks:
+  alphanetwork:
+    driver: overlay
+    attachable: true
+
+volumes:
+  data1:
+  config1:
