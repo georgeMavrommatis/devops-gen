@@ -16,4 +16,4 @@ ADD initiate_replica.sh $DEPLOYMENT_SCRIPT_DIR/$DEPLOYMENT_SCRIPT_FILE
 
 WORKDIR $DEPLOYMENT_SCRIPT_DIR
 
-ENTRYPOINT ["initiate_replica.sh"]
+ENTRYPOINT ["./initiate_replica.sh"]
