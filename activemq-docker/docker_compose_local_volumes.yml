@@ -16,8 +16,8 @@ services:
     networks:
       artemis-cluster-network:
     environment:
-      ARTEMIS_USERNAME: "generaliMessaging"
-      ARTEMIS_PASSWORD: "TY587xrMwcUICohd10Cn"
+      ARTEMIS_USERNAME: "artemis"
+      ARTEMIS_PASSWORD: "12345678"
     volumes:
       - activemq-artemis-data-broker-1:/opt/messaging/artemis/data
       #- type: volume
@@ -41,8 +41,8 @@ services:
     networks:
       artemis-cluster-network:
     environment:
-      ARTEMIS_USERNAME: "generaliMessaging"
-      ARTEMIS_PASSWORD: "TY587xrMwcUICohd10Cn"
+      ARTEMIS_USERNAME: "artemis"
+      ARTEMIS_PASSWORD: "12345678"
     volumes:
       - activemq-artemis-data-broker-2:/opt/messaging/artemis/data
       # - type: volume
