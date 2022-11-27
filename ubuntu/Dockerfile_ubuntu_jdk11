@@ -1,0 +1,11 @@
+ROM ubuntu:22.04
+ENV LANG='el_GR.UTF-8' LANGUAGE='el_GR:UTF-8' LC_ALL='el_GR.UTF-8'
+
+RUN apt-get update && apt-get install -y curl p7zip-full locales
+WORKDIR /opt
+ADD ./localFiles/jdk11.tar.gz /opt/
+RUN mv /opt/zulu11.56.19-ca-jdk11.0.15-linux_x64 /opt/jdk11-linux
+ADD ./localFiles/java.security /opt/jdk11-linux/conf/security/
+RUN chmod -R 775 /opt/jdk11-linux/
+ENV JAVA_HOME=/opt/jdk11-linux
+ENV PATH="$JAVA_HOME/bin:$PATH"
