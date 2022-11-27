@@ -1,13 +1,8 @@
-# ActiveMQ Artemis
-
-##########################################################
-## Build Image                                           #
-##########################################################
 FROM sw-nexus:9001/ubuntu22-jdk11
 #ENV LANG='el_GR.UTF-8' LANGUAGE='el_GR:UTF-8' LC_ALL='el_GR.UTF-8'
-RUN apt-get update && \
-    apt-get install -y locales vim apt net-tools wget curl gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y apt nmap locales vim wget gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init \
+  && \
+  rm -rf /var/lib/apt/lists/*
 RUN locale-gen 'el_GR.UTF-8'
 RUN update-locale LANG='el_GR.UTF-8'
 
@@ -17,6 +12,7 @@ ENV INSTANCE_HOME=/opt/messaging/artemis
 ENV INSTANCE_ETC=/opt/messaging/artemis/etc
 ENV USER=generaliMessaging  
 ENV USER_PASS=TY587xrMwcUICohd10Cn
+  
   
  
 # Uncompress and validate
@@ -120,7 +116,7 @@ WORKDIR ${INSTANCE_HOME}/bin
 #USER artemis 
 RUN mkdir -p ${INSTANCE_HOME}/lock 
 #RUN mkdir -p ${INSTANCE_HOME}/etc-override
-ADD  assets/broker_1.xml ${INSTANCE_ETC}/broker.xml
+ADD  assets/broker_2.xml ${INSTANCE_ETC}/broker.xml
  
 # Expose some outstanding folders
 #VOLUME ["${INSTANCE_HOME}/data"]

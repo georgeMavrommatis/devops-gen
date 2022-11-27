@@ -1,7 +1,7 @@
 version: "3.8"
 services:
     broker_1:
-      image: sw-nexus:9001/activemq-artemis-broker-1-dev-ops
+      image: gmavrommatis/activemq-artemis-broker1
       deploy:
         replicas: 1
         placement:
@@ -25,7 +25,7 @@ services:
           target: /opt/messaging/artemis/data
 
     broker_2:
-      image: sw-nexus:9001/activemq-artemis-broker-2-dev-ops
+      image: gmavrommatis/activemq-artemis-broker2
       deploy:
         replicas: 1
         placement:
@@ -62,4 +62,4 @@ volumes:
  activemq-artemis-data-broker-2:
                           driver: local
                           driver_opts:
-                                    device: /opt/docker/broker1/data  
+                                    device: /opt/docker/broker2/data  

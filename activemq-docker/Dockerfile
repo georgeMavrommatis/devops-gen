@@ -1,13 +1,8 @@
-# ActiveMQ Artemis
-
-##########################################################
-## Build Image                                           #
-##########################################################
 FROM sw-nexus:9001/ubuntu22-jdk11
 #ENV LANG='el_GR.UTF-8' LANGUAGE='el_GR:UTF-8' LC_ALL='el_GR.UTF-8'
-RUN apt-get update && \
-    apt-get install -y locales vim apt net-tools wget curl gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y locales vim apt net-tools wget curl gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init \
+  && \
+  rm -rf /var/lib/apt/lists/*
 RUN locale-gen 'el_GR.UTF-8'
 RUN update-locale LANG='el_GR.UTF-8'
 
