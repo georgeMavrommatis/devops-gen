@@ -20,3 +20,7 @@ rs.initiate(
 )
 EOF
 echo "replica set created"
+mongo --host mongodb1 <<EOF
+rs.addArb("mongodb3:27017")
+EOF
+echo "arbiter added to primary"
