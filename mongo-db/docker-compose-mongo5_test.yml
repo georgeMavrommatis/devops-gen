@@ -84,6 +84,10 @@ services:
       - mongodb3
     networks:
       - alphanetwork
+    entrypoint: ["/deployment_scripts/", "initiate_replica.sh"]
+#    volumes:
+#      - ./deployment_scripts:/deployment_scripts
+    command: ./deployment_scripts/initiate_replica.sh
 
 networks:
   alphanetwork:
