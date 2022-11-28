@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Starting replica set initialize"
-until mongo --host mongodb1 --eval "print(\"waited for connection\")"
+until mongo --host mongo5_mongodb1 --eval "print(\"waited for connection\")"
 do
     sleep 2
 done
