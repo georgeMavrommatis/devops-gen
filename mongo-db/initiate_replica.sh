@@ -29,7 +29,7 @@ echo "replica set created"
 
 foo=$(cat /var/log/syslog | grep -c "replica set created")
 # your code ...
-if(foo == 1);
+if($foo == 1);
 then
 break;
 fi;
