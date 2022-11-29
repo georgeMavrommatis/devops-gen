@@ -91,7 +91,7 @@ services:
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongoclient:
-    image: sw-nexus:9001/mongo5_client:1.0.0
+    image: gmavrommatis/mongo5_client:1.0.0
     deploy:
       replicas: 1
       restart_policy :
