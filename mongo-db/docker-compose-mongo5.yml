@@ -11,10 +11,10 @@ services:
           - node.labels.type == mongo
       resources:
         limits:
-          cpus: '0.90'
+          cpus: '0.20'
           memory: 3G
         reservations:
-          cpus: '0.90'
+          cpus: '0.20'
           memory: 3G
     ports:
       - 30001:27017
@@ -42,10 +42,10 @@ services:
           - node.labels.type == mongo
       resources:
         limits:
-          cpus: '0.90'
+          cpus: '0.20'
           memory: 3G
         reservations:
-          cpus: '0.90'
+          cpus: '0.20'
           memory: 3G
     ports:
       - 30002:27017
@@ -71,7 +71,7 @@ services:
           - node.labels.type == mongo
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '0.30'
           memory: 50M
         reservations:
           cpus: '0.25'
