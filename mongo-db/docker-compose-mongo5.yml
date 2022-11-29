@@ -1,0 +1,136 @@
+version: '3.8'
+services:
+
+  mongodb1:
+    image: mongo:5
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+          - node.labels.type == mongo
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 3G
+        reservations:
+          cpus: '0.90'
+          memory: 3G
+    ports:
+      - 30001:27017
+    networks:
+      - alphanetwork
+    volumes:
+      - type: volume
+        source: mongodb1
+        target: /data/
+      #- data1:/data/db
+      #- config1:/data/configdb
+    command: [ --auth ]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongodb2:
+    image: mongo:5
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+          - node.labels.type == mongo
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 3G
+        reservations:
+          cpus: '0.90'
+          memory: 3G
+    ports:
+      - 30002:27017
+    networks:
+      - alphanetwork
+    volumes:
+      - type: volume
+        source: mongodb2
+        target: /data/
+    command: [ --auth ]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongodb3:
+    image: mongo:5
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+          - node.labels.type == mongo
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+    ports:
+      - 30003:27017
+    networks:
+      - alphanetwork
+    volumes:
+      - type: volume
+        source: mongodb_arbiter
+        target: /data/
+    command: [ --auth ]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongoclient:
+    image: sw-nexus:9001/mongo5_client:1.0.0
+    deploy:
+      replicas: 1
+      restart_policy :
+        condition: none
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+          - node.labels.type == mongo
+    depends_on:
+      - mongodb1
+      - mongodb2
+      - mongodb3
+    networks:
+      - alphanetwork
+
+networks:
+  alphanetwork:
+    driver: overlay
+    attachable: true
+
+volumes:
+  mongodb1:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/mongo5/mongodb1/
+
+  mongodb2:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/mongo5/mongodb2/
+
+  mongodb_arbiter:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/mongo5/arbiter/
