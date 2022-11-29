@@ -19,4 +19,4 @@ RUN mkdir $DEPLOYMENT_SCRIPT_DIR
 
 COPY /initiate_replica.sh /
 RUN dos2unix /initiate_replica.sh
-ENTRYPOINT ["/initiate_replica.sh"]
+#ENTRYPOINT ["/initiate_replica.sh"]
