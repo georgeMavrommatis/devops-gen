@@ -1,0 +1,22 @@
+---Initiate Bash---
+	)docker exec -it containerid bash
+	)mongo
+	)db.help()
+	)show dbs
+	)use dbname // use admin, if we use a non existing db it will be created when we create a document to it
+	)db //shows selected db
+	)db.collectionname // creates collection in memmory
+	)db.info.count() // shows documents in collection
+	)db.info.insert({name: "Apple",product: "Iphone"}); //inserts a document in collection
+	)db.info.find()
+	)db.info.find().forEach(printjson)
+	)var data = {}
+	)data.name = "MyName"
+	)data.product = "something - Elese"
+	)data.emp = ["one","two"]
+	)data.videos = {}
+	)data.videos.mongo = "MongoDBVideo"
+	)data.videos.php = "PHPVideo"
+	)db.info.save(data)
+
+	
