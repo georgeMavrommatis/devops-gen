@@ -15,8 +15,11 @@ services:
       - alphanetwork
     volumes:
       - type: volume
-        source: mongodb1
+        source: mongodb1_data
         target: /data/db/
+      - type: volume
+        source: mongodb1_configdb
+        target: /data/config/
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongodb2:
@@ -33,8 +36,11 @@ services:
       - alphanetwork
     volumes:
       - type: volume
-        source: mongodb2
+        source: mongodb2_data
         target: /data/db/
+      - type: volume
+        source: mongodb2_configdb
+        target: /data/config/
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongodb3:
@@ -51,8 +57,11 @@ services:
       - alphanetwork
     volumes:
       - type: volume
-        source: mongodb_arbiter
+        source: mongodb_arb_data
         target: /data/db/
+      - type: volume
+        source: mongodb_arb_configdb
+        target: /data/config/
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongoclient:
@@ -79,23 +88,44 @@ networks:
     attachable: true
 
 volumes:
-  mongodb1:
+  mongodb1_data:
     driver: local
     driver_opts:
       o: bind
       type: none
       device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/db/
 
-  mongodb2:
+  mongodb1_configdb:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/configdb/
+
+  mongodb2_data:
     driver: local
     driver_opts:
       o: bind
       type: none
       device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/db/
 
-  mongodb_arbiter:
+  mongodb2_configdb:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/configdb/
+
+  mongodb_arb_data:
     driver: local
     driver_opts:
       o: bind
       type: none
       device: /opt/docker-volumes/nfs/mongo5/arbiter/data/db/
+
+  mongodb_arb_configdb:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/configdb/
