@@ -25,7 +25,7 @@ services:
         constraints:
           - node.platform.os == linux
           - node.role == worker
-          - node.labels.type == Swarm-Mongo1-Prd
+          - node.labels.type == Swarm-Mongo2-Prd
     ports:
       - 30002:27017
     networks:
@@ -39,7 +39,7 @@ services:
         constraints:
           - node.platform.os == linux
           - node.role == worker
-          - node.labels.type == Swarm-Mongo1-Prd
+          - node.labels.type == Swarm-Mongo-Arb-Prd
     ports:
       - 30003:27017
     networks:
