@@ -12,9 +12,9 @@ rs.initiate(
   {
     _id : 'rs0',
     members: [
-      { _id : 0, host : "sw-swarm-prd-mgr01:30001" },
-      { _id : 1, host : "sw-swarm-prd-mgr01:30002" },
-      { _id : 2, host : "sw-swarm-prd-mgr01:30003", arbiterOnly: true }
+      { _id : 0, host : "mongodb1:27017" },
+      { _id : 1, host : "mongodb2:27017" },
+      { _id : 2, host : "mongodb3:27017", arbiterOnly: true }
     ]
   }
 )
