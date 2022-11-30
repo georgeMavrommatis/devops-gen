@@ -1,0 +1,1 @@
+docker build -t gmavrommatis/mongo5_client:1.0.0 .
