@@ -9,6 +9,13 @@ services:
           - node.platform.os == linux
           - node.role == worker
           - node.labels.type == Swarm-Mongo1-Prd
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 3G
+        reservations:
+          cpus: '0.90'
+          memory: 3G
     ports:
       - 30001:27017
     networks:
@@ -30,6 +37,13 @@ services:
           - node.platform.os == linux
           - node.role == worker
           - node.labels.type == Swarm-Mongo2-Prd
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 3G
+        reservations:
+          cpus: '0.90'
+          memory: 3G
     ports:
       - 30002:27017
     networks:
@@ -51,6 +65,13 @@ services:
           - node.platform.os == linux
           - node.role == worker
           - node.labels.type == Swarm-Mongo-Arb-Prd
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
     ports:
       - 30003:27017
     networks:
