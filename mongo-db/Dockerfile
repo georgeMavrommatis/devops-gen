@@ -1,4 +1,4 @@
-FROM mongo:5
+FROM mongo:4.4
 
 ENV DEPLOYMENT_SCRIPT_DIR="/deployment_scripts"
 ENV DEPLOYMENT_SCRIPT_FILE="initiate_replica.sh"
@@ -18,5 +18,6 @@ RUN mkdir $DEPLOYMENT_SCRIPT_DIR
 # ENTRYPOINT ["/deployment_scripts/initiate_replica.sh"]
 
 COPY /initiate_replica.sh /
+RUN chmod +x /initiate_replica.sh
 RUN dos2unix /initiate_replica.sh
 ENTRYPOINT ["/initiate_replica.sh"]

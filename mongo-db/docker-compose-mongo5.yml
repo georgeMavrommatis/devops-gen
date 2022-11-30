@@ -2,7 +2,7 @@ version: '3.8'
 services:
 
   mongodb1:
-    image: mongo:5
+    image: mongo:4.4
     deploy:
       placement:
         constraints:
@@ -19,7 +19,7 @@ services:
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongodb2:
-    image: mongo:5
+    image: mongo:4.4
     deploy:
       placement:
         constraints:
@@ -33,7 +33,7 @@ services:
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongodb3:
-    image: mongo:5
+    image: mongo:4.4
     deploy:
       placement:
         constraints:
@@ -56,13 +56,17 @@ services:
         constraints:
           - node.platform.os == linux
           - node.role == worker
-          - node.labels.type == mongo
     depends_on:
       - mongodb1
       - mongodb2
       - mongodb3
     networks:
       - alphanetwork
+#    volumes:
+#      - ./deployment_scripts:/deployment_scripts
+#    command: ./deployment_scripts/initiate_replica.sh
+#    entrypoint:
+#      - /deployment_scripts/initiate_replica.sh
 
 networks:
   alphanetwork:
