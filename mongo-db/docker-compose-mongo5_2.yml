@@ -3,13 +3,24 @@ services:
 
   mongodb1:
     image: mongo:5
-    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all
+    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all --keyFile /etc/mongo-repl.key
+    #    environment:
+    #      - MONGO_INITDB_ROOT_USERNAME=admin_user
+    #      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+    #      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
           - node.platform.os == linux
           - node.role == worker
           - node.labels.type == Swarm-Mongo1-Prd
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 3G
+        reservations:
+          cpus: '0.90'
+          memory: 3G
     ports:
       - 30001:27017
     networks:
@@ -21,16 +32,28 @@ services:
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   mongodb2:
     image: mongo:5
-    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all
+    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all --keyFile /etc/mongo-repl.key
+    #    environment:
+    #      - MONGO_INITDB_ROOT_USERNAME=admin_user
+    #      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+    #      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
           - node.platform.os == linux
           - node.role == worker
           - node.labels.type == Swarm-Mongo2-Prd
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 3G
+        reservations:
+          cpus: '0.90'
+          memory: 3G
     ports:
       - 30002:27017
     networks:
@@ -42,16 +65,28 @@ services:
       - type: volume
         source: mongodb2_configdb
         target: /data/config/
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   mongodb3:
     image: mongo:5
-    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all
+    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all --keyFile /etc/mongo-repl.key
+    #    environment:
+    #      - MONGO_INITDB_ROOT_USERNAME=admin_user
+    #      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+    #      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
           - node.platform.os == linux
           - node.role == worker
           - node.labels.type == Swarm-Mongo-Arb-Prd
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
     ports:
       - 30003:27017
     networks:
@@ -63,6 +98,7 @@ services:
       - type: volume
         source: mongodb_arb_configdb
         target: /data/config/
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   mongoclient:
     image: sw-nexus:9001/mongo5_client:1.0.0

@@ -1,0 +1,8 @@
+net:
+  port: 27017
+  bindIpAll: true
+replication:
+  replSetName: rs0
+security:
+#  keyFile: /etc/mongo-repl.key
+  authorization: disabled
