@@ -56,7 +56,7 @@ services:
         constraints:
           - node.platform.os == linux
           - node.role == worker
-          - node.labels.type == Swarm-Mongo1-Prd
+          - node.labels.type == Swarm-Mongo-Arb-Prd
     depends_on:
       - mongodb1
       - mongodb2
