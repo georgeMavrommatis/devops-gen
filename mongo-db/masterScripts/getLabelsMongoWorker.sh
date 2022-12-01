@@ -1,3 +1,4 @@
+#!/bin/bash
 echo 'mongodb-prd01'
 docker node inspect mongodb-prd01 | grep Labels -A $1
 echo 'mongodb-prd02'

@@ -3,11 +3,10 @@ services:
 
   mongodb1:
     image: mongo:5
-    command: /usr/bin/mongod --config /etc/config.yml
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=admin_user
-#      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-#      - MONGO_INITDB_DATABASE=admin
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -32,16 +31,14 @@ services:
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongodb2:
     image: mongo:5
-    command: /usr/bin/mongod --config /etc/config.yml
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=admin_user
-#      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-#      - MONGO_INITDB_DATABASE=admin
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -66,16 +63,14 @@ services:
       - type: volume
         source: mongodb2_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongodb3:
     image: mongo:5
-    command: /usr/bin/mongod --config /etc/config.yml
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=admin_user
-#      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-#      - MONGO_INITDB_DATABASE=admin
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -100,8 +95,7 @@ services:
       - type: volume
         source: mongodb_arb_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
 
   mongoclient:
     image: sw-nexus:9001/mongo5_client:1.0.0

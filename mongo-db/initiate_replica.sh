@@ -5,6 +5,17 @@ until mongo --host mongodb1 --eval "print(\"waited for connection\")"
 do
     sleep 2
 done
+
+until mongo --host mongodb2 --eval "print(\"waited for connection\")"
+do
+    sleep 2
+done
+
+until mongo --host mongodb3 --eval "print(\"waited for connection\")"
+do
+    sleep 2
+done
+
 echo "Connection finished"
 echo "Creating replica set"
 mongo --host mongodb1 <<EOF

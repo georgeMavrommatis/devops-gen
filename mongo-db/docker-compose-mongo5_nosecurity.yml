@@ -3,11 +3,11 @@ services:
 
   mongodb1:
     image: mongo:5
-    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all --keyFile /etc/mongo-repl.key
-    #    environment:
-    #      - MONGO_INITDB_ROOT_USERNAME=admin_user
-    #      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-    #      - MONGO_INITDB_DATABASE=admin
+    command: /usr/bin/mongod --config /etc/config.yml
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -33,14 +33,15 @@ services:
         source: mongodb1_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
 
   mongodb2:
     image: mongo:5
-    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all --keyFile /etc/mongo-repl.key
-    #    environment:
-    #      - MONGO_INITDB_ROOT_USERNAME=admin_user
-    #      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-    #      - MONGO_INITDB_DATABASE=admin
+    command: /usr/bin/mongod --config /etc/config.yml
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -66,14 +67,15 @@ services:
         source: mongodb2_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
 
   mongodb3:
     image: mongo:5
-    command: /usr/bin/mongod --port 27017 --replSet rs0 --bind_ip_all --keyFile /etc/mongo-repl.key
-    #    environment:
-    #      - MONGO_INITDB_ROOT_USERNAME=admin_user
-    #      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-    #      - MONGO_INITDB_DATABASE=admin
+    command: /usr/bin/mongod --config /etc/config.yml
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -99,6 +101,7 @@ services:
         source: mongodb_arb_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
 
   mongoclient:
     image: sw-nexus:9001/mongo5_client:1.0.0
