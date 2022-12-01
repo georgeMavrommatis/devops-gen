@@ -28,7 +28,7 @@ services:
     volumes:
       - type: volume
         source: mongodb1_data
-        target: /data/db/
+        target: /data/arb/
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
@@ -69,9 +69,9 @@ services:
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
       - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
 
-  mongodb3:
-    image: mongo:5
-    command: /usr/bin/mongod --config /etc/config.yml
+  mongo_arbiter:
+    image: sw-nexus:9001/mongo5_arbiter:1.0.0
+    command: /usr/bin/mongod --config /etc/confArbiter.yml
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin_user
       - MONGO_INITDB_ROOT_PASSWORD=admin_pass
@@ -101,7 +101,7 @@ services:
         source: mongodb_arb_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
+      - /opt/docker-volumes/nfs/mongo5/security/confArbiter.yml:/etc/confArbiter.yml
 
   mongoclient:
     image: sw-nexus:9001/mongo5_client:1.0.0
@@ -117,7 +117,7 @@ services:
     depends_on:
       - mongodb1
       - mongodb2
-      - mongodb3
+      - mongo_arbiter
     networks:
       - alphanetwork
 
@@ -160,7 +160,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/db/
+      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/arb/
 
   mongodb_arb_configdb:
     driver: local

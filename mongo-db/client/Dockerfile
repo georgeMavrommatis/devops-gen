@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y locales vim apt net-tools wget curl gpg
 RUN locale-gen 'el_GR.UTF-8'
 RUN update-locale LANG='el_GR.UTF-8'
 
-RUN mkdir $DEPLOYMENT_SCRIPT_DIR 
+RUN mkdir $DEPLOYMENT_SCRIPT_DIR
 
 # ADD initiate_replica.sh $DEPLOYMENT_SCRIPT_DIR/$DEPLOYMENT_SCRIPT_FILE
 
