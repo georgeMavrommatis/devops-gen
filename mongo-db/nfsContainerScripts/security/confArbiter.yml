@@ -6,5 +6,5 @@ replication:
 storage:
   dbPath: /data/arb
 security:
-  authorization: disabled
-  #keyFile: /etc/mongo-repl.key
+  authorization: enabled
+  keyFile: /etc/mongo-repl.key

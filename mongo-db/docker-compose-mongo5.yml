@@ -2,11 +2,13 @@ version: '3.8'
 services:
 
   mongodb1:
-    image: mongo:5
+    image: sw-nexus:9001/mongo5_replica:1.0.0
     command: /usr/bin/mongod --config /etc/config.yml
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin_user
-      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_USER_ADMIN=adminGenerali
+      - MONGO_PASS_ADMIN=adminGeneraliPass
+      - MONGO_REPLICA_ADMIN=replicaAdminGenerali
+      - MONGO_PASS_REPLICA=replicaAdminGeneraliPass
       - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
@@ -32,15 +34,17 @@ services:
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key:ro
+      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml:ro
 
   mongodb2:
-    image: mongo:5
+    image: sw-nexus:9001/mongo5_replica:1.0.0
     command: /usr/bin/mongod --config /etc/config.yml
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin_user
-      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
+      - MONGO_USER_ADMIN=adminGenerali
+      - MONGO_PASS_ADMIN=adminGeneraliPass
+      - MONGO_REPLICA_ADMIN=replicaAdminGenerali
+      - MONGO_PASS_REPLICA=replicaAdminGeneraliPass
       - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
@@ -72,10 +76,6 @@ services:
   mongodb_arbiter:
     image: sw-nexus:9001/mongo5_arbiter:1.0.0
     command: /usr/bin/mongod --config /etc/confArbiter.yml
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin_user
-      - MONGO_INITDB_ROOT_PASSWORD=admin_pass
-      - MONGO_INITDB_DATABASE=admin
     deploy:
       placement:
         constraints:
@@ -103,23 +103,23 @@ services:
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
       - /opt/docker-volumes/nfs/mongo5/security/confArbiter.yml:/etc/confArbiter.yml
 
-  mongoclient:
-    image: sw-nexus:9001/mongo5_client:1.0.0
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: none
-      placement:
-        constraints:
-          - node.platform.os == linux
-          - node.role == worker
-          - node.labels.type == Swarm-Mongo-Arb-Prd
-    depends_on:
-      - mongodb1
-      - mongodb2
-      - mongodb_arbiter
-    networks:
-      - alphanetwork
+#  mongoclient:
+#    image: sw-nexus:9001/mongo5_client:1.0.0
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: none
+#      placement:
+#        constraints:
+#          - node.platform.os == linux
+#          - node.role == worker
+#          - node.labels.type == Swarm-Mongo-Arb-Prd
+#    depends_on:
+#      - mongodb1
+#      - mongodb2
+#      - mongo_arbiter
+#    networks:
+#      - alphanetwork
 
 networks:
   alphanetwork:

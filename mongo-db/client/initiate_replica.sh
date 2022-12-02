@@ -40,7 +40,8 @@ echo "-->Connected to mongodb_arbiter<--"
 echo "-->Connection finished<--"
 
 #fetch status
-statusReport=$(mongosh --host mongodb1 <<EOF
+statusReport=$(
+  mongosh --host mongodb1 <<EOF
 rs.status()
 EOF
 )
@@ -51,11 +52,12 @@ request=${statusReport//$'\n'/}
 var=0
 
 while [ true ]; do
-#fetch response of who is primary
-request=$(mongosh --host mongodb1 <<EOF
+  #fetch response of who is primary
+  request=$(
+    mongosh --host mongodb1 <<EOF
 rs.isMaster().primary
 EOF
-)
+  )
 
   if [[ $statusReport == *"MongoServerError: no replset config has been received"* ]]; then
     echo "--->MongoDB server not initialized<---"

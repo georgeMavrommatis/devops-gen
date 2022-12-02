@@ -4,5 +4,5 @@ net:
 replication:
   replSetName: rs0
 security:
-  authorization: disabled
-  #keyFile: /etc/mongo-repl.key
+  authorization: enabled
+  keyFile: /etc/mongo-repl.key
