@@ -39,30 +39,56 @@ done
 echo "-->Connected to mongodb_arbiter<--"
 echo "-->Connection finished<--"
 
-#fetch response of who is primary
-request=$(
-  mongo --host mongodb1 <<EOF
-rs.isMaster().primary
+#fetch status
+statusReport=$(mongosh --host mongodb1 <<EOF
+rs.status()
 EOF
 )
 
 #remove new line characters
-request=${request//$'\n'/}
+request=${statusReport//$'\n'/}
 
-echo "Locate Primary Server via connection -->"
-echo $request
-echo "<--"
+var=0
 
-if [[ $request == *"mongodb1:27017bye"* ]]; then
-  primaryServer="mongodb1"
-elif [[ $request == *"mongodb2:27017bye"* ]]; then
-  primaryServer="mongodb2"
-elif [[ $request == *"================bye"* ]]; then
-  primaryServer="mongodb1"
-else
-  echo "Error!!! no Primary Server detected!!!"
-  exit 0
-fi
+while [ true ]; do
+#fetch response of who is primary
+request=$(mongosh --host mongodb1 <<EOF
+rs.isMaster().primary
+EOF
+)
+
+  if [[ $statusReport == *"MongoServerError: no replset config has been received"* ]]; then
+    echo "--->MongoDB server not initialized<---"
+    primaryServer="mongodb1"
+    break
+  fi
+
+  #remove new line characters
+  request=${request//$'\n'/}
+
+  echo "Request -->"
+  echo $request
+  echo "<--"
+
+  if [[ $request == *"mongodb1:27017rs0"* ]]; then
+    primaryServer="mongodb1"
+    break
+  elif [[ $request == *"mongodb2:27017rs0"* ]]; then
+    primaryServer="mongodb2"
+    break
+  fi
+
+  echo "Atempting #"$var" to find MongoDB Primary..."
+
+  sleep 2
+
+  var=$((var + 1))
+  if [[ var -eq 10 ]]; then
+    echo "-->Error!!! Unable to connect to mongodb_arbiter via overlay Newtork!!!<--"
+    exit 0
+  fi
+
+done
 
 #Print message based on the value of $passed
 echo "------> Primary Server: " $primaryServer
