@@ -57,13 +57,15 @@ if [[ $request == *"mongodb1:27017bye"* ]]; then
   primaryServer="mongodb1"
 elif [[ $request == *"mongodb2:27017bye"* ]]; then
   primaryServer="mongodb2"
+elif [[ $request == *"================bye"* ]]; then
+  primaryServer="mongodb1"
 else
   echo "Error!!! no Primary Server detected!!!"
   exit 0
 fi
 
 #Print message based on the value of $passed
-echo "Primary Server: " $primaryServer
+echo "------> Primary Server: " $primaryServer
 
 echo "Creating replica set"
 mongo --host $primaryServer <<EOF
@@ -71,16 +73,16 @@ rs.initiate(
   {
     _id : 'rs0',
     members: [
-      { _id : 0, host : "mongodb1:27017" },
-      { _id : 1, host : "mongodb2:27017" },
+      { _id : 0, host : "mongodb1:27017", arbiterOnly: false },
+      { _id : 1, host : "mongodb2:27017", arbiterOnly: false },
       { _id : 2, host : "mongodb_arbiter:27017", arbiterOnly: true }
     ]
   }
 )
 EOF
 echo "----------> Replica set created in "$primaryServer"<----------"
-
-mongo --host $primaryServer <<EOF
-rs.addArb("mongodb_arbiter:27017")
-EOF
-echo "----------> Added Arbiter in "$primaryServer" <----------"
+echo "----------> Connect to primary server via a mongo container and execute mongosh, rs.status() to view All initialized members<----------"
+echo "----------> Connect to primary server via a mongo container and execute mongosh, rs.status() to view All initialized members<----------"
+echo "----------> 1) docker run --rm -it --net mongo5-service_alphanetwork sw-nexus:9001/mongo5_arbiter:1.0.0 bash<----------"
+echo "----------> 2) mongosh --host "$primaryServer"<----------"
+echo "----------> 3) rs.status()<----------"
