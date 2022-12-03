@@ -30,7 +30,7 @@ services:
     volumes:
       - type: volume
         source: mongodb1_data
-        target: /data/arb/
+        target: /data/db/
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
@@ -96,7 +96,7 @@ services:
     volumes:
       - type: volume
         source: mongodb_arb_data
-        target: /data/db/
+        target: /data/arb/
       - type: volume
         source: mongodb_arb_configdb
         target: /data/config/
