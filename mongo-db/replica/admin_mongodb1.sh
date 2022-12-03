@@ -1,3 +1,4 @@
+#!/bin/bash
 serverName="mongodb1"
 
 echo "Starting replica set initialize"
@@ -55,7 +56,7 @@ admin.createUser(
     roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
   }
 )
-db.getSiblingDB("admin").auth("generali", "generalipass" )
+db.getSiblingDB("admin").auth("adminGenerali", "adminGeneraliPass" )
 // creation of the replica set admin user
 db.getSiblingDB("admin").createUser(
   {
