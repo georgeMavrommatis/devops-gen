@@ -11,6 +11,8 @@ services:
       - MONGO_PASS_REPLICA=replicaAdminGeneraliPass
       - MONGO_INITDB_DATABASE=admin
     deploy:
+#      restart_policy:
+#        condition: none
       placement:
         constraints:
           - node.platform.os == linux
@@ -47,6 +49,8 @@ services:
       - MONGO_PASS_REPLICA=replicaAdminGeneraliPass
       - MONGO_INITDB_DATABASE=admin
     deploy:
+#      restart_policy:
+#        condition: none
       placement:
         constraints:
           - node.platform.os == linux
@@ -102,24 +106,6 @@ services:
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
       - /opt/docker-volumes/nfs/mongo5/security/confArbiter.yml:/etc/confArbiter.yml
-
-#  mongoclient:
-#    image: sw-nexus:9001/mongo5_client:1.0.0
-#    deploy:
-#      replicas: 1
-#      restart_policy:
-#        condition: none
-#      placement:
-#        constraints:
-#          - node.platform.os == linux
-#          - node.role == worker
-#          - node.labels.type == Swarm-Mongo-Arb-Prd
-#    depends_on:
-#      - mongodb1
-#      - mongodb2
-#      - mongo_arbiter
-#    networks:
-#      - alphanetwork
 
 networks:
   alphanetwork:
