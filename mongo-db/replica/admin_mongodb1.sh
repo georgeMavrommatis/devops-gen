@@ -69,7 +69,7 @@ EOF
 
   echo "----------> Connect to primary server via a mongo container and execute mongosh, rs.status() to view All initialized members<----------"
   echo "----------> 1) docker run --rm -it --net mongo5-service_alphanetwork mongo:5 bash<----------"
-  echo "----------> 2) mongosh --host "$serverName" -u USERNAME -p OASSWORD --authenticationDatabase \"admin\" <----------"
+  echo "----------> 2) mongosh --host "$serverName" -u USERNAME -p PASSWORD --authenticationDatabase \"admin\" <----------"
   echo "----------> 3) rs.status()<----------"
   echo "or"
   echo "----------> 1) docker run --rm -it mongo:5 bash<----------"
