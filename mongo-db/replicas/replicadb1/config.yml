@@ -6,6 +6,6 @@ replication:
 security:
   authorization: enabled
   keyFile: /etc/mongo-repl.key
-storage:
+#storage:
 #  journal:
 #    enabled: true #Default: true on 64-bit systems, false on 32-bit systems

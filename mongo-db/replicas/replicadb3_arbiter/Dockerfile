@@ -1,6 +1,7 @@
 FROM mongo:5
 
 ENV ARBITER_DATA_DIR="/data/arb"
+ENV DATA_ADMIN_DIR="/data/admin"
 
 RUN apt-get update && apt-get install -y locales vim apt net-tools wget curl gpg gpg-agent libaio1 xmlstarlet jq ca-certificates gettext-base procps dumb-init && apt-get install -y dos2unix\
   && \
@@ -8,4 +9,7 @@ RUN apt-get update && apt-get install -y locales vim apt net-tools wget curl gpg
 RUN locale-gen 'el_GR.UTF-8'
 RUN update-locale LANG='el_GR.UTF-8'
 
-RUN mkdir $ARBITER_DATA_DIR
+RUN mkdir -p $ARBITER_DATA_DIR
+RUN mkdir -p $DATA_ADMIN_DIR
+
+COPY /confArbiter.yml $DATA_ADMIN_DIR

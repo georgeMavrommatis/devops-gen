@@ -1,3 +1,3 @@
 #!/bin/bash
 docker login -u admin -p JMfbh8E6SRJVpBGfzL6W sw-nexus:9001
-docker image push sw-nexus:9001/mongo5_replica:1.0.0
+docker image push sw-nexus:9001/mongo5_replicadb1:1.0.0

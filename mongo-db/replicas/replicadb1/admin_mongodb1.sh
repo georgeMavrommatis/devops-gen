@@ -62,7 +62,10 @@ db.getSiblingDB("admin").createUser(
   {
     "user" : "replicaAdminGenerali",
     "pwd" : "replicaAdminGeneraliPass",
-    roles: [ { "role" : "clusterAdmin", "db" : "admin" } ]
+    roles: [
+    { "role" : "clusterAdmin", "db" : "admin" },
+    { "role" : "clusterManager", "db" : "admin" }
+    ]
   }
 )
 EOF

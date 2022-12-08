@@ -2,8 +2,8 @@ version: '3.8'
 services:
 
   mongodb1:
-    image: sw-nexus:9001/mongo5_replica:1.0.0
-    command: /usr/bin/mongod --config /etc/config.yml
+    image: sw-nexus:9001/mongo5_replicadb1:1.0.0
+    command: /usr/bin/mongod --config /data/admin/config.yml
     environment:
       - MONGO_USER_ADMIN=adminGenerali
       - MONGO_PASS_ADMIN=adminGeneraliPass
@@ -11,8 +11,8 @@ services:
       - MONGO_PASS_REPLICA=replicaAdminGeneraliPass
       - MONGO_INITDB_DATABASE=admin
     deploy:
-#      restart_policy:
-#        condition: none
+      #      restart_policy:
+      #        condition: none
       placement:
         constraints:
           - node.platform.os == linux
@@ -37,11 +37,10 @@ services:
         source: mongodb1_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key:ro
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml:ro
 
   mongodb2:
-    image: sw-nexus:9001/mongo5_replica:1.0.0
-    command: /usr/bin/mongod --config /etc/config.yml
+    image: sw-nexus:9001/mongo5_replicadb2:1.0.0
+    command: /usr/bin/mongod --config /data/admin/config.yml
     environment:
       - MONGO_USER_ADMIN=adminGenerali
       - MONGO_PASS_ADMIN=adminGeneraliPass
@@ -49,8 +48,8 @@ services:
       - MONGO_PASS_REPLICA=replicaAdminGeneraliPass
       - MONGO_INITDB_DATABASE=admin
     deploy:
-#      restart_policy:
-#        condition: none
+      #      restart_policy:
+      #        condition: none
       placement:
         constraints:
           - node.platform.os == linux
@@ -75,11 +74,10 @@ services:
         source: mongodb2_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/config.yml:/etc/config.yml
 
   mongodb_arbiter:
     image: sw-nexus:9001/mongo5_arbiter:1.0.0
-    command: /usr/bin/mongod --config /etc/confArbiter.yml
+    command: /usr/bin/mongod --config /data/admin/confArbiter.yml
     deploy:
       placement:
         constraints:
@@ -105,7 +103,27 @@ services:
         source: mongodb_arb_configdb
         target: /data/config/
       - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
-      - /opt/docker-volumes/nfs/mongo5/security/confArbiter.yml:/etc/confArbiter.yml
+
+  haproxy:
+    image: haproxy:2.7
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.role == worker
+          - node.labels.type == proxy
+    networks:
+      - alphanetwork
+    ports:
+      #      - 48161:48161
+      #      - 48162:48162
+      - 40001:40001
+      - 40002:40002
+      - 40003:40003
+    #      Add more ports for load balancing
+    volumes:
+      #      save  haproxy.cfg at /opt/haproxy/ host machine, in case of multiple workers, nfs must be implemented.
+      - /opt/haproxy/:/usr/local/etc/haproxy/:ro
 
 networks:
   alphanetwork:
