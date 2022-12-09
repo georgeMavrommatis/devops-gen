@@ -1,5 +1,5 @@
 net:
-  port: 30003
+  port: 40003
   bindIpAll: true
 replication:
   replSetName: rs0
