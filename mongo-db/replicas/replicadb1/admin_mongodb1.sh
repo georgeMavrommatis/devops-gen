@@ -1,5 +1,5 @@
 #!/bin/bash
-serverName="mongodb1"
+serverName="127.0.0.1:40001"
 
 echo "Starting replica set initialize"
 
@@ -28,15 +28,15 @@ if [[ $request == *"Does not have a valid replica set config"* ]]; then
   echo "Waiting 10 seconds before initialization..."
   sleep 10
 
-mongosh <<EOF
+mongosh --host $serverName <<EOF
 db.getSiblingDB("admin")
 rs.initiate(
   {
     _id : 'rs0',
     members: [
-      { _id : 0, host : "mongodb1:27017", arbiterOnly: false },
-      { _id : 1, host : "mongodb2:27017", arbiterOnly: false },
-      { _id : 2, host : "mongodb_arbiter:27017", arbiterOnly: true }
+      { _id : 0, host : "mongodb-prd01:40001", arbiterOnly: false },
+      { _id : 1, host : "mongodb-prd02:40002", arbiterOnly: false },
+      { _id : 2, host : "mongodb-arb:40003", arbiterOnly: true }
     ]
   }
 )
@@ -47,13 +47,16 @@ EOF
   sleep 10
   echo "----------> Creating adminGenerali,replicaAdminGenerali users "$serverName"<----------"
 
-mongosh <<EOF
+mongosh --host $serverName <<EOF
 admin = db.getSiblingDB("admin")
 admin.createUser(
   {
     user: "adminGenerali",
     pwd: "adminGeneraliPass",
-    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+    roles: [
+    {role: "userAdminAnyDatabase", db: "admin"},
+    {role: "root", db: "admin"}
+    ]
   }
 )
 db.getSiblingDB("admin").auth("adminGenerali", "adminGeneraliPass" )
@@ -64,7 +67,8 @@ db.getSiblingDB("admin").createUser(
     "pwd" : "replicaAdminGeneraliPass",
     roles: [
     { "role" : "clusterAdmin", "db" : "admin" },
-    { "role" : "clusterManager", "db" : "admin" }
+    { "role" : "clusterManager", "db" : "admin" },
+    { "role" : "root", "db" : "admin" },
     ]
   }
 )
