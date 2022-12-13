@@ -23,7 +23,7 @@ RUN ulimit -n 100000
 # LimitMAXMEM
 RUN ulimit -m unlimited 
 # LimitMEMLOCK
-RUN ulimit -l 82000
+#RUN ulimit -l 82000
 # LimitNPROC
 RUN ulimit -p 100000
 COPY /admin_mongodb1.sh $DATA_ADMIN_DIR

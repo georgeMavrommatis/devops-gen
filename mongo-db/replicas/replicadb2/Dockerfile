@@ -21,7 +21,7 @@ RUN ulimit -n 100000
 # LimitMAXMEM
 RUN ulimit -m unlimited 
 # LimitMEMLOCK
-RUN ulimit -l 82000
+#RUN ulimit -l 82000
 # LimitNPROC
 RUN ulimit -p 100000
 RUN mkdir -p $DATA_ADMIN_DIR
