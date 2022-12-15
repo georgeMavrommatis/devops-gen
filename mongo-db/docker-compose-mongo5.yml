@@ -36,7 +36,7 @@ services:
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
-      - /opt/docker-volumes/mongo5/security/mongo-repl.key:/etc/mongo-repl.key:ro
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key:ro
 
   mongodb2:
     image: sw-nexus:9001/mongo5_replicadb2:1.0.0
@@ -73,7 +73,7 @@ services:
       - type: volume
         source: mongodb2_configdb
         target: /data/config/
-      - /opt/docker-volumes/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   mongodb_arbiter:
     image: sw-nexus:9001/mongo5_arbiter:1.0.0
@@ -102,7 +102,7 @@ services:
       - type: volume
         source: mongodb_arb_configdb
         target: /data/config/
-      - /opt/docker-volumes/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   haproxy:
     image: haproxy:2.7
@@ -123,7 +123,7 @@ services:
     #      Add more ports for load balancing
     volumes:
       #      save  haproxy.cfg at /opt/haproxy/ host machine, in case of multiple workers, nfs must be implemented.
-      - /opt/haproxy/:/usr/local/etc/haproxy/:ro
+      - /opt/docker-volumes/nfs/haproxy/:/usr/local/etc/haproxy/:ro
 
 networks:
   alphanetwork:
