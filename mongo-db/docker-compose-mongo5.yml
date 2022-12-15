@@ -36,7 +36,7 @@ services:
       - type: volume
         source: mongodb1_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key:ro
+      - /opt/docker-volumes/mongo5/security/mongo-repl.key:/etc/mongo-repl.key:ro
 
   mongodb2:
     image: sw-nexus:9001/mongo5_replicadb2:1.0.0
@@ -73,7 +73,7 @@ services:
       - type: volume
         source: mongodb2_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   mongodb_arbiter:
     image: sw-nexus:9001/mongo5_arbiter:1.0.0
@@ -102,7 +102,7 @@ services:
       - type: volume
         source: mongodb_arb_configdb
         target: /data/config/
-      - /opt/docker-volumes/nfs/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
+      - /opt/docker-volumes/mongo5/security/mongo-repl.key:/etc/mongo-repl.key
 
   haproxy:
     image: haproxy:2.7
@@ -136,39 +136,39 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/db/
+      device: /opt/docker-volumes/mongo5/mongodb1/data/db/
 
   mongodb1_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/configdb/
+      device: /opt/docker-volume/mongo5/mongodb1/data/configdb/
 
   mongodb2_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/db/
+      device: /opt/docker-volumes/mongo5/mongodb2/data/db/
 
   mongodb2_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/configdb/
+      device: /opt/docker-volumes/mongo5/mongodb2/data/configdb/
 
   mongodb_arb_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/arb/
+      device: /opt/docker-volumes/mongo5/arbiter/data/arb/
 
   mongodb_arb_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/configdb/
+      device: /opt/docker-volumes/mongo5/arbiter/data/configdb/

@@ -132,39 +132,39 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/db/
+      device: /opt/docker-volumes/mongo5/mongodb1/data/db/
 
   mongodb1_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/configdb/
+      device: /opt/docker-volumes/mongo5/mongodb1/data/configdb/
 
   mongodb2_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/db/
+      device: /opt/docker-volumes/mongo5/mongodb2/data/db/
 
   mongodb2_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/configdb/
+      device: /opt/docker-volumes/mongo5/mongodb2/data/configdb/
 
   mongodb_arb_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/db/
+      device: /opt/docker-volumes/mongo5/arbiter/data/db/
 
   mongodb_arb_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/configdb/
+      device: /opt/docker-volumes/mongo5/arbiter/data/configdb/
