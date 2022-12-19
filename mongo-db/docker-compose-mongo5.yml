@@ -123,7 +123,7 @@ services:
     #      Add more ports for load balancing
     volumes:
       #      save  haproxy.cfg at /opt/haproxy/ host machine, in case of multiple workers, nfs must be implemented.
-      - /opt/haproxy/:/usr/local/etc/haproxy/:ro
+      - /opt/docker-volumes/nfs/haproxy/:/usr/local/etc/haproxy/:ro
 
 networks:
   alphanetwork:
@@ -136,39 +136,39 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/db/
+      device: /opt/docker-volumes/mongo5/mongodb1/data/db/
 
   mongodb1_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb1/data/configdb/
+      device: /opt/docker-volume/mongo5/mongodb1/data/configdb/
 
   mongodb2_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/db/
+      device: /opt/docker-volumes/mongo5/mongodb2/data/db/
 
   mongodb2_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/mongodb2/data/configdb/
+      device: /opt/docker-volumes/mongo5/mongodb2/data/configdb/
 
   mongodb_arb_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/arb/
+      device: /opt/docker-volumes/mongo5/arbiter/data/arb/
 
   mongodb_arb_configdb:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/mongo5/arbiter/data/configdb/
+      device: /opt/docker-volumes/mongo5/arbiter/data/configdb/
