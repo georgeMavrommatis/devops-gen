@@ -2,54 +2,9 @@ rs.reconfig(
   {
     _id : 'rs0',
     members: [
-      { _id : 0, host : "sw-swarm-prd-worker06:30001", arbiterOnly: false },
-      { _id : 1, host : "sw-swarm-prd-worker06:30002", arbiterOnly: false },
-      { _id : 2, host : "sw-swarm-prd-worker06:30003", arbiterOnly: true }
-    ]
-  },
-   {
-    "force" : true,
-    "maxTimeMS" : 10000
-  }
-)
-
-rs.reconfig(
-  {
-    _id : 'rs0',
-    members: [
-      { _id : 0, host : "sw-swarm-prd-worker06:30001", arbiterOnly: false },
-      { _id : 1, host : "sw-swarm-prd-worker06:30002", arbiterOnly: false },
-      { _id : 2, host : "sw-swarm-prd-worker06:30003", arbiterOnly: true }
-    ]
-  },
-   {
-    "force" : true,
-    "maxTimeMS" : 10000
-  }
-)
-
-rs.reconfig(
-  {
-    _id : 'rs0',
-    members: [
-      { _id : 0, host : "mongodb1:27017", arbiterOnly: false },
-      { _id : 1, host : "mongodb2:27017", arbiterOnly: false },
-      { _id : 2, host : "mongodb_arbiter:27017", arbiterOnly: true }
-    ]
-  },
-   {
-    "force" : true,
-    "maxTimeMS" : 10000
-  }
-)
-
-rs.reconfig(
-  {
-    _id : 'rs0',
-    members: [
-      { _id : 0, host : "192.168.184.1:30001", arbiterOnly: false },
-      { _id : 1, host : "192.168.184.1:30002", arbiterOnly: false },
-      { _id : 2, host : "192.168.184.1:30003", arbiterOnly: true }
+      { _id : 0, host : "mongodb-prd01:30001", arbiterOnly: false },
+      { _id : 1, host : "mongodb-prd02:30002", arbiterOnly: false },
+      { _id : 2, host : "mongodb-arb:30003", arbiterOnly: true }
     ]
   },
    {

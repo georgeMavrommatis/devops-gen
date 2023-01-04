@@ -8,7 +8,6 @@ docker exec -i $mongodb1ContainerName /usr/bin/mongodump -h mongodb1:40001  \
 --username adminGenerali \
 --password adminGeneraliPass \
 --authenticationDatabase admin \
---db admin \
 --out /data/db/backup
 
 rsync -avEAX /opt/docker-volumes/mongo5/mongodb1/data/db/backup /opt/docker-volumes/nfs/mongo5/mongodb1

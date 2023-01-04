@@ -1,5 +1,5 @@
 #!/bin/bash
-serverName="127.0.0.1:40001"
+serverName="127.0.0.1:30001"
 
 echo "Starting replica set initialize"
 
@@ -34,9 +34,9 @@ rs.initiate(
   {
     _id : 'rs0',
     members: [
-      { _id : 0, host : "mongodb-prd01:40001", arbiterOnly: false },
-      { _id : 1, host : "mongodb-prd02:40002", arbiterOnly: false },
-      { _id : 2, host : "mongodb-arb:40003", arbiterOnly: true }
+      { _id : 0, host : "mongodb-prd01:30001", arbiterOnly: false },
+      { _id : 1, host : "mongodb-prd02:30002", arbiterOnly: false },
+      { _id : 2, host : "mongodb-arb:30003", arbiterOnly: true }
     ]
   }
 )
