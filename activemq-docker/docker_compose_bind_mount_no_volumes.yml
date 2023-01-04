@@ -21,7 +21,7 @@ services:
     volumes:
       - type: volume
         source: activemq-artemis-data-broker-1
-        target: /opt/messaging/artemis/
+        target: /opt/messaging/artemis/data
 
   broker_2:
     image: sw-nexus:9001/activemq-artemis-broker-2-dev-ops:1.0.0
@@ -46,7 +46,7 @@ services:
     volumes:
       - type: volume
         source: activemq-artemis-data-broker-2
-        target: /opt/messaging/artemis/
+        target: /opt/messaging/artemis/data
 
 
 networks:
@@ -60,11 +60,11 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/acmq/broker1/
+      device: /opt/docker-volumes/nfs/acmq/broker1/data/
 
   activemq-artemis-data-broker-2:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /opt/docker-volumes/nfs/acmq/broker2/
+      device: /opt/docker-volumes/nfs/acmq/broker2/data/

@@ -61,7 +61,7 @@ WORKDIR ${INSTANCE_ETC}
 RUN sed -i "s/logger.handlers=.*/logger.handlers=CONSOLE/g" ${INSTANCE_ETC}/logging.properties
 
 # --java-options doesn't seem to work across the board on all versions adding them manually ##~!! its not compatible with jdk 11
-RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Djava.net.preferIPv4Stack=true -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -Xms2G -Xmx8G /g" ${INSTANCE_ETC}/artemis.profile
+RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Djava.net.preferIPv4Stack=true -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -Xms6G -Xmx6G /g" ${INSTANCE_ETC}/artemis.profile
  
 # Ports are only exposed with an explicit argument, there is no need to binding
 # the web console to localhost
