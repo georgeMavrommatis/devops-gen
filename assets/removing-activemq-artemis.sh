@@ -13,8 +13,8 @@ elif [ $state == no ] ; then
  exit
 else 
     echo "Invalid argument, please try again"
-    ScriptLoc=$(pwd)
-    exec "$ScriptLoc/removing-activemq-artemis.sh"
+
+    exit
 
 fi
 
