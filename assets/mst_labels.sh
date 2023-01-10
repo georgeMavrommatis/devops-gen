@@ -10,14 +10,26 @@ else
 
 arg=$1
 
-echo 'sw-swarm-prd-mgr01'
-docker node inspect mongodb-prd01 | grep Labels -A10 |grep $arg
-echo '============================'
-echo 'sw-swarm-prd-mgr02'
-docker node inspect mongodb-prd02 | grep Labels -A10 |grep $arg
-echo '============================'
-echo 'sw-swarm-prd-mgr03'
-docker node inspect mongodb-arb | grep Labels -A10 |grep $arg
-echo '============================'
+first=$(docker node inspect sw-swarm-prd-mgr01 | grep Labels -A10 |grep $arg)
+    if [ "$first" != "" ] ; then
+        echo '============================'
+        echo 'sw-swarm-prd-mgr01'
+        echo "$first"
+    fi
+second=$(docker node inspect sw-swarm-prd-mgr02 | grep Labels -A10 |grep $arg)   
+
+    if [ "$second" != "" ] ; then
+        echo '============================'
+        echo 'sw-swarm-prd-mgr02'
+        echo "$second"
+    fi
+
+third=$(docker node inspect sw-swarm-prd-mgr03 | grep Labels -A10 |grep $arg)
+    
+    if [ "$third" != "" ] ; then \
+        echo '============================'
+        echo 'sw-swarm-prd-mgr03'
+        echo "$third"
+    fi
 
 fi
