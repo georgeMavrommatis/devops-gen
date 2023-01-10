@@ -25,6 +25,7 @@ third=$(docker node inspect mongodb-arb | grep Labels -A10 |grep $arg)
         echo '============================'
         echo 'mongodb-arb'
         echo "$third"
+    fi
 fourth=$(docker node inspect sw-swarm-prd-worker01 | grep Labels -A10 |grep $arg)
     if [ "$fourth" != "" ] ; then
         echo '============================'
@@ -54,6 +55,7 @@ eightth=$(docker node inspect sw-swarm-prd-worker05 | grep Labels -A10 |grep $ar
         echo '============================'
         echo 'sw-swarm-prd-worker05'
         echo "$eightth"
+    fi
 nineth=$(docker node inspect sw-swarm-prd-worker06 | grep Labels -A10 |grep $arg)
     if [ "$nineth" != "" ] ; then 
         echo '============================'
